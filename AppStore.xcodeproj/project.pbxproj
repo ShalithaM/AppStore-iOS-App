@@ -12,6 +12,8 @@
 		673286F52163363700BDD005 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 673286F32163363700BDD005 /* Main.storyboard */; };
 		673286F72163363800BDD005 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 673286F62163363800BDD005 /* Assets.xcassets */; };
 		673286FA2163363800BDD005 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 673286F82163363800BDD005 /* LaunchScreen.storyboard */; };
+		673287022163432D00BDD005 /* TableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673287012163432D00BDD005 /* TableCell.swift */; };
+		67328704216359C800BDD005 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 67328703216359C700BDD005 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		673286F62163363800BDD005 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		673286F92163363800BDD005 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		673286FB2163363800BDD005 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		673287012163432D00BDD005 /* TableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCell.swift; sourceTree = "<group>"; };
+		67328703216359C700BDD005 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +42,7 @@
 		673286E32163363700BDD005 = {
 			isa = PBXGroup;
 			children = (
+				67328703216359C700BDD005 /* Default-568h@2x.png */,
 				673286EE2163363700BDD005 /* AppStore */,
 				673286ED2163363700BDD005 /* Products */,
 			);
@@ -57,6 +62,7 @@
 				673286EF2163363700BDD005 /* AppDelegate.swift */,
 				673286F12163363700BDD005 /* ViewController.swift */,
 				673286F32163363700BDD005 /* Main.storyboard */,
+				673287012163432D00BDD005 /* TableCell.swift */,
 				673286F62163363800BDD005 /* Assets.xcassets */,
 				673286F82163363800BDD005 /* LaunchScreen.storyboard */,
 				673286FB2163363800BDD005 /* Info.plist */,
@@ -123,6 +129,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				673286FA2163363800BDD005 /* LaunchScreen.storyboard in Resources */,
+				67328704216359C800BDD005 /* Default-568h@2x.png in Resources */,
 				673286F72163363800BDD005 /* Assets.xcassets in Resources */,
 				673286F52163363700BDD005 /* Main.storyboard in Resources */,
 			);
@@ -135,6 +142,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				673287022163432D00BDD005 /* TableCell.swift in Sources */,
 				673286F22163363700BDD005 /* ViewController.swift in Sources */,
 				673286F02163363700BDD005 /* AppDelegate.swift in Sources */,
 			);
@@ -283,6 +291,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3WXB7FP32N;
 				INFOPLIST_FILE = AppStore/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -301,6 +310,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3WXB7FP32N;
 				INFOPLIST_FILE = AppStore/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
