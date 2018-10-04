@@ -61,9 +61,12 @@
                                                     <color key="textColor" red="0.57414853570000002" green="0.57416242360000003" blue="0.57415497299999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" translatesAutoresizingMaskIntoConstraints="NO" id="iRv-qG-4l2">
-                                                    <rect key="frame" x="307" y="90.5" width="42" height="20.5"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" translatesAutoresizingMaskIntoConstraints="NO" id="iRv-qG-4l2">
+                                                    <rect key="frame" x="307" y="81" width="42" height="30"/>
                                                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="Zku-QK-qab"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -174,6 +177,17 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jjx-fd-XEo">
+                                            <rect key="frame" x="4" y="4" width="20" height="20"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="20" id="fYG-Kq-wns"/>
+                                                <constraint firstAttribute="width" constant="20" id="rb5-dv-6aB"/>
+                                            </constraints>
+                                            <state key="normal" image="close"/>
+                                            <connections>
+                                                <action selector="closeAction:" destination="BYZ-38-t0r" eventType="touchDown" id="pbj-a3-GrA"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
@@ -184,6 +198,7 @@
                                         <constraint firstAttribute="trailing" secondItem="Py6-wC-JF6" secondAttribute="trailing" constant="8" id="IvZ-DD-Wv6"/>
                                         <constraint firstItem="305-st-LZ5" firstAttribute="leading" secondItem="8Fs-Ur-Ff3" secondAttribute="leading" constant="8" id="M1z-15-x4b"/>
                                         <constraint firstItem="DiH-Pc-pO4" firstAttribute="top" secondItem="ks0-yi-EtA" secondAttribute="bottom" constant="4" id="OnJ-66-dqD"/>
+                                        <constraint firstItem="Jjx-fd-XEo" firstAttribute="leading" secondItem="8Fs-Ur-Ff3" secondAttribute="leading" constant="4" id="QzH-Bh-AzG"/>
                                         <constraint firstItem="DiH-Pc-pO4" firstAttribute="leading" secondItem="8Fs-Ur-Ff3" secondAttribute="leading" constant="8" id="SvY-tn-Xde"/>
                                         <constraint firstAttribute="trailing" secondItem="305-st-LZ5" secondAttribute="trailing" constant="8" id="XiU-Yp-HMU"/>
                                         <constraint firstItem="GUj-MM-0Ca" firstAttribute="top" secondItem="8Fs-Ur-Ff3" secondAttribute="top" constant="4" id="ZMd-2e-vyR"/>
@@ -195,6 +210,7 @@
                                         <constraint firstItem="ks0-yi-EtA" firstAttribute="leading" secondItem="8Fs-Ur-Ff3" secondAttribute="leading" constant="2" id="j0J-BT-sCJ"/>
                                         <constraint firstAttribute="trailing" secondItem="DiH-Pc-pO4" secondAttribute="trailing" constant="8" id="kGd-mj-1Ks"/>
                                         <constraint firstItem="GUj-MM-0Ca" firstAttribute="leading" secondItem="8Fs-Ur-Ff3" secondAttribute="leading" constant="55.5" id="sxp-E5-GRE"/>
+                                        <constraint firstItem="Jjx-fd-XEo" firstAttribute="top" secondItem="8Fs-Ur-Ff3" secondAttribute="top" constant="4" id="u1x-eX-yib"/>
                                     </constraints>
                                 </view>
                             </subviews>
@@ -221,4 +237,7 @@
             <point key="canvasLocation" x="52" y="78.710644677661179"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="close" width="72" height="72"/>
+    </resources>
 </document>

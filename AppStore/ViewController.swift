@@ -21,6 +21,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet var lblGener: UILabel!
     @IBOutlet var lblPrice: UILabel!
     @IBOutlet var imgProfile: UIImageView!
+    
+    @IBAction func closeAction(_ sender: Any) {
+        self.popupView.removeFromSuperview()
+    }
     //to setup table
     var appArray = [iOSApps]()
     
@@ -132,7 +136,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         //cell.selectionStyle = .none
         cell.name.text = appArray[indexPath.row].name
         cell.sellerName.text = appArray[indexPath.row].sellerName
-        cell.price.text = appArray[indexPath.row].price
+        cell.price.text = "   " + appArray[indexPath.row].price + "   "
         
         
         //download and set image
@@ -161,33 +165,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         self.popupView.layer.cornerRadius = 5
         self.popupView.layer.borderWidth = 1
-        self.popupView.layer.borderColor = UIColor.black.cgColor
+        self.popupView.layer.borderColor = UIColor.gray.cgColor
         
         self.lblName.text = self.appArray[indexPath.row].name
         self.lblSellerName.text = self.appArray[indexPath.row].sellerName
-        self.lblType.text = self.appArray[indexPath.row].type
-        self.lblGener.text = self.appArray[indexPath.row].gener
+        self.lblType.text = "Type: " + self.appArray[indexPath.row].type
+        self.lblGener.text = "Gener: " + self.appArray[indexPath.row].gener
         
         self.lblPrice.layer.cornerRadius = 5
         self.lblPrice.text = "   " + self.appArray[indexPath.row].price + "   "
-        
-        print(self.appArray[indexPath.row].image)
-        
-        let selectedImage = tableView.cellForRow(at: indexPath)
-        print(selectedImage)
-        
-        var tmpIndexpath = IndexPath(row: indexPath.row, section: 0)
-        
-        
-//        let url = NSURL(string:self.appArray[indexPath.row].image)
-//        let imagedata = NSData.init(contentsOf: url! as URL)
-//
-//        if imagedata != nil {
-//            self.imgProfile.image = UIImage(data:imagedata! as Data)
-//        }
-//        else{
-//            print("test 1")
-//        }
         
         self.view.addSubview(self.popupView)
         self.popupView.center = self.view.center
@@ -196,9 +182,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     @objc func checkAction(){
-        self.popupView.removeFromSuperview()
+//        self.popupView.removeFromSuperview()
     }
-    
     
         
     //set table hight
