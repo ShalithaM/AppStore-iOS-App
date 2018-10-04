@@ -8,13 +8,22 @@
 
 import UIKit
 
+
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
 
     @IBOutlet var table: UITableView!
     @IBOutlet var searchBar: UISearchBar!
-    
+    @IBOutlet weak var popupView: UIView!
+    @IBOutlet weak var lblName: UILabel!
+    @IBOutlet weak var lblNoResponse: UILabel!
+    @IBOutlet var lblSellerName: UILabel!
+    @IBOutlet var lblType: UILabel!
+    @IBOutlet var lblGener: UILabel!
+    @IBOutlet var lblPrice: UILabel!
+    @IBOutlet var imgProfile: UIImageView!
     //to setup table
     var appArray = [iOSApps]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +31,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         alterLayout()
         table.tableFooterView = UIView()
         
+        let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.checkAction))
+        self.popupView.addGestureRecognizer(gesture)
     }
+
     
     //setup search bar
     private func setUpSearchBar(){
@@ -34,46 +46,70 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         if searchBar.text == nil || searchBar.text == "" {
             print("No search key word")
+            self.appArray.removeAll()
+            self.table.reloadData()
         }
         else{
             setUpApps(key: searchBar.text!)
-            table.reloadData()
-            let indexPath = IndexPath(row: 0, section: 0)
-            table.scrollToRow(at: indexPath, at: .top, animated: true)
-            searchBar.text = "";
         }
     }
     
     //set values to array
     private func setUpApps(key: String) {
-        appArray = []
+        appArray.removeAll()
+        self.table.reloadData()
         let formattedKey =  key.replacingOccurrences(of: " ", with: "+")
         
         let url=URL(string:"https://itunes.apple.com/search?term="+formattedKey+"&limit=50&entity=software")
         do {
             let receivedData = try Data(contentsOf: url!)
             let responseJSON = try JSONSerialization.jsonObject(with: receivedData, options: JSONSerialization.ReadingOptions.allowFragments) as! [String : AnyObject]
-            
-            if let results = responseJSON["results"] as? [[String: AnyObject]] {
-                for index in 0...results.count-1 {
-                    
-                    let result = results[index]
-                    
-                    let formattedPrice = result["formattedPrice"] as? String ?? "Free"
-                    var dispayPrice : String
-                    if formattedPrice == "Free" {
-                        dispayPrice = "Free"
+            if let resultCount = responseJSON["resultCount"] as? Int {
+                if resultCount > 0 {
+                    if let results = responseJSON["results"] as? [[String: AnyObject]] {
+                        for index in 0...results.count-1 {
+                            
+                            let result = results[index]
+                            
+                            let formattedPrice = result["formattedPrice"] as? String ?? "Free"
+                            var dispayPrice : String
+                            if formattedPrice == "Free" {
+                                dispayPrice = "Free"
+                            }
+                            else{
+                                dispayPrice = String(result["formattedPrice"] as! String)
+                            }
+                            
+                            appArray.append(
+                                iOSApps(name: result["trackName"] as! String, sellerName: result["sellerName"] as! String, price: dispayPrice, type: result["kind"] as! String, gener: result["primaryGenreName"] as! String, image: result["artworkUrl60"] as! String))
+                        }
+                        
+                        if self.appArray.count > 0 {
+                            self.lblNoResponse.alpha = 0
+                            table.reloadData()
+                            let indexPath = IndexPath(row: 0, section: 0)
+                            table.scrollToRow(at: indexPath, at: .top, animated: true)
+                            searchBar.text = "";
+                        }
+                        else {
+                            self.lblNoResponse.alpha = 1
+                            print("array empty")
+                        }
                     }
-                    else{
-                        dispayPrice = String(result["formattedPrice"] as! String)
-                    }
-                    
-                    appArray.append(
-                        iOSApps(name: result["trackName"] as! String, sellerName: result["sellerName"] as! String, price: dispayPrice, type: result["kind"] as! String, gener: result["primaryGenreName"] as! String, image: result["artworkUrl60"] as! String))
+                }
+                else {
+                    self.lblNoResponse.alpha = 1
+                    print("no result")
                 }
             }
+            else {
+                self.lblNoResponse.alpha = 1
+                print("dictonary problem")
+            }
+           
         }
         catch {
+            self.lblNoResponse.alpha = 1
             print("Error")
         }
         self.searchBar.endEditing(true)
@@ -93,6 +129,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? TableCell else {
             return UITableViewCell()
         }
+        //cell.selectionStyle = .none
         cell.name.text = appArray[indexPath.row].name
         cell.sellerName.text = appArray[indexPath.row].sellerName
         cell.price.text = appArray[indexPath.row].price
@@ -108,19 +145,61 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return cell
     }
     
+    
+    // select a cell
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       
-        let selectedApp = self.appArray[indexPath.row]
         
-        print(selectedApp.name)
+        let url = NSURL(string:self.appArray[indexPath.row].image)
+        let imagedata = NSData.init(contentsOf: url! as URL)
         
-        let alertController = UIAlertController(title: selectedApp.name, message: "Type:  " + selectedApp.type , preferredStyle: .alert)
-        let defaultAction = UIAlertAction(title: "Close Alert", style: .default, handler: nil)
-        alertController.addAction(defaultAction)
+        if imagedata != nil {
+            self.imgProfile.image = UIImage(data:imagedata! as Data)
+        }
+        else {
+            print("No image found")
+        }
         
-        present(alertController, animated: true, completion: nil)
+        self.popupView.layer.cornerRadius = 5
+        self.popupView.layer.borderWidth = 1
+        self.popupView.layer.borderColor = UIColor.black.cgColor
+        
+        self.lblName.text = self.appArray[indexPath.row].name
+        self.lblSellerName.text = self.appArray[indexPath.row].sellerName
+        self.lblType.text = self.appArray[indexPath.row].type
+        self.lblGener.text = self.appArray[indexPath.row].gener
+        
+        self.lblPrice.layer.cornerRadius = 5
+        self.lblPrice.text = "   " + self.appArray[indexPath.row].price + "   "
+        
+        print(self.appArray[indexPath.row].image)
+        
+        let selectedImage = tableView.cellForRow(at: indexPath)
+        print(selectedImage)
+        
+        var tmpIndexpath = IndexPath(row: indexPath.row, section: 0)
+        
+        
+//        let url = NSURL(string:self.appArray[indexPath.row].image)
+//        let imagedata = NSData.init(contentsOf: url! as URL)
+//
+//        if imagedata != nil {
+//            self.imgProfile.image = UIImage(data:imagedata! as Data)
+//        }
+//        else{
+//            print("test 1")
+//        }
+        
+        self.view.addSubview(self.popupView)
+        self.popupView.center = self.view.center
+        self.popupView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
 
     }
+    
+    @objc func checkAction(){
+        self.popupView.removeFromSuperview()
+    }
+    
+    
         
     //set table hight
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -135,6 +214,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return UITableViewAutomaticDimension
     }
+    
 }
 
 class iOSApps {
