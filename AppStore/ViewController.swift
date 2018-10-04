@@ -167,6 +167,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.popupView.layer.borderWidth = 1
         self.popupView.layer.borderColor = UIColor.gray.cgColor
         
+        self.popupView.layer.shadowColor = UIColor.black.cgColor
+        self.popupView.layer.shadowOpacity = 1
+        self.popupView.layer.shadowOffset = CGSize.zero
+        self.popupView.layer.shadowRadius = 100
+        
         self.lblName.text = self.appArray[indexPath.row].name
         self.lblSellerName.text = self.appArray[indexPath.row].sellerName
         self.lblType.text = "Type: " + self.appArray[indexPath.row].type
@@ -182,7 +187,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     @objc func checkAction(){
-//        self.popupView.removeFromSuperview()
+        self.popupView.removeFromSuperview()
     }
     
         
