@@ -34,6 +34,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         setUpSearchBar()
         alterLayout()
         table.tableFooterView = UIView()
+        self.lblNoResponse.text = "Enter search key word"
         
         let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.checkAction))
         self.popupView.addGestureRecognizer(gesture)
@@ -50,6 +51,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         if searchBar.text == nil || searchBar.text == "" {
             print("No search key word")
+            self.lblNoResponse.text = "Enter search key word"
+            self.lblNoResponse.alpha = 1
             self.appArray.removeAll()
             self.table.reloadData()
         }
@@ -96,17 +99,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                             searchBar.text = "";
                         }
                         else {
+                            self.lblNoResponse.text = "Result not found"
                             self.lblNoResponse.alpha = 1
                             print("array empty")
                         }
                     }
                 }
                 else {
+                    self.lblNoResponse.text = "Result not found"
                     self.lblNoResponse.alpha = 1
                     print("no result")
                 }
             }
             else {
+                self.lblNoResponse.text = "Result not found"
                 self.lblNoResponse.alpha = 1
                 print("dictonary problem")
             }
